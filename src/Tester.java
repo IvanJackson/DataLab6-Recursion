@@ -5,8 +5,10 @@ public class Tester {
 	 * @param args
 	 */
 	public static <T> void main(String[] args) {	
-		listTester("Testing the singly linked list (SLList): ",
-				new SLLSimpleList<Integer>());	
+//		listTester("Testing the singly linked list (SLList): ",
+//				new SLLSimpleList<Integer>());	
+		System.out.println(Examples.fibI(50));
+		System.out.println(Examples.fibR(50));
 	}
 		
 	private static <T> void listTester(String msg, SLLSimpleList<Integer>  list) { 
@@ -31,6 +33,7 @@ public class Tester {
 		list.reverse();
 		showList(list);
 
+		
 
 	}
 		
