@@ -5,10 +5,19 @@ public class Tester {
 	 * @param args
 	 */
 	public static <T> void main(String[] args) {	
-//		listTester("Testing the singly linked list (SLList): ",
-//				new SLLSimpleList<Integer>());	
-		System.out.println(Examples.fibI(50));
-		System.out.println(Examples.fibR(50));
+		listTester("Testing the singly linked list (SLList): ",
+				new SLLSimpleList<Integer>());	
+		long start1 = System.nanoTime();
+		System.out.println(Examples.fibI(30));
+		long end1 = System.nanoTime();
+		long duration1=end1-start1;
+		System.out.println("The iterative Fibonacci sequence took: "+(duration1/1000000000)+" seconds. ");
+		long start2 = System.nanoTime();
+		Pair<Integer> pair = Examples.fibR(30);
+		long end2 = System.nanoTime();
+		System.out.println("("+pair.first()+","+pair.second()+")");
+		long duration2=end2-start2;
+		System.out.println("The iterative Fibonacci sequence took: "+(duration2/1000000000)+" seconds. ");
 	}
 		
 	private static <T> void listTester(String msg, SLLSimpleList<Integer>  list) { 
