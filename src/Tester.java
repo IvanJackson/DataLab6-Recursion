@@ -8,7 +8,14 @@ public class Tester {
 	public static <T> void main(String[] args) {	
 //		listTester("Testing the singly linked list (SLList): ",
 //				new SLLSimpleList<Integer>());	
-		listTester2(new SLLSimpleList<Integer>());
+//		listTester2(new SLLSimpleList<Integer>());
+		ArrayQueue<Integer> queue = (ArrayQueue<Integer>) fillQueue(new ArrayQueue<Integer>());
+		ArrayQueue<Integer> queue2 = (ArrayQueue<Integer>) fillQueue(new ArrayQueue<Integer>());
+		queue = (ArrayQueue<Integer>) fillQueue2(queue);
+		queue2 = (ArrayQueue<Integer>) fillQueue2(queue2);
+		showQueue(queue);
+		sort(queue2);
+		showQueue(queue2);
 //		long start1 = System.nanoTime();
 //		System.out.println(Examples.fibI(30));
 //		long end1 = System.nanoTime();
@@ -22,6 +29,62 @@ public class Tester {
 //		System.out.println("The iterative Fibonacci sequence took: "+(duration2/1000000000)+" seconds. ");
 	}
 	
+
+	private static void showQueue(ArrayQueue<Integer> queue) {
+		System.out.println("\n*** The "+ queue.size()+ " elements in the list are: "); 
+		int lpindex = queue.size(); 
+		for (int i=0; i< lpindex; i++)
+		    showQueueElement(queue); 
+	}
+		
+	private static void showQueueElement(ArrayQueue<Integer> queue) {
+		System.out.println((queue.dequeue()));
+		
+	}
+
+
+	private static Queue<Integer> fillQueue(Queue<Integer> queue) {
+		for(int i=0;i<5;i++) queue.enqueue(i);
+		return queue;
+	}
+	private static Queue<Integer> fillQueue2(Queue<Integer> queue) {
+		for(int i=5;i>0;i--) queue.enqueue(i);
+		return queue;
+	}
+	
+	
+
+	private static void sort(Queue<Integer> q) {    // sorts the elements in q in non-decreasing order
+		   if (q.size() > 1) {     // if size is <= 1, then nothing needs to be done
+		      Queue<Integer> q1, q2; 
+		      // Initialize q1 and q2 to empty instances of  ArrayQueue as implemented in previous lab.
+		      q1 = new ArrayQueue<Integer>(); 
+		      q2 = new ArrayQueue<Integer>(); 
+
+		      // split the elements of q in two halves (or close to), first half into q1 and second half into q2
+		      int n = q.size(); 
+		      for (int i=0; i<n/2; i++) 
+		          q1.enqueue(q.dequeue());
+		      while (!q.isEmpty())
+		          q2.enqueue(q.dequeue()); 
+
+		      sort(q1);    // recursively sort q1
+		      sort(q2);    // recursively sort q2
+
+		      // What is left to do now is the merging operation. Given that q1 and q2 are each sorted, 
+		      // efficiently combine is elements back into q so that they are placed in order from first to last. 
+		      // This process efficiently exploits the property that both, q1 and q2, are sorted.
+		      while (!q1.isEmpty() && !q2.isEmpty())
+		          if (((Comparable<Integer>) q1.front()).compareTo(q2.front()) <= 0)
+		             q.enqueue(q1.dequeue()); 
+		          else 
+		             q.enqueue(q2.dequeue()); 
+		      // At this moment, one of the two queues, either q1 or q2, is empty.
+		      Queue<Integer> r = (!q1.isEmpty() ? q1 : q2);  // find which, q1 or q2, is not empty yet
+		      while (!r.isEmpty())
+		          q.enqueue(r.dequeue()); 
+		     } 
+		}
 
 	
 	private static <T> void listTester(String msg, SLLSimpleList<Integer>  list) { 
@@ -66,6 +129,8 @@ public class Tester {
 			System.out.println("("+arr.get(i).first()+","+arr.get(i).second()+")");
 		}
 	}
+	
+//	private static <T> void listTester3()
 		
 	private static void showElement(SLLSimpleList<Integer> list, int position) { 
 		try { 
