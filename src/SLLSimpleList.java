@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class SLLSimpleList<T> {
 		public static class Node<T>{
@@ -207,6 +207,43 @@ public class SLLSimpleList<T> {
 			return pair = new Pair<Node<T>>(pair.first(), node);
 		}
 	}
+	
+	public ArrayList<T> lessThan(T e) { 
+	   ArrayList<T> result = new ArrayList<>();     // and empty ArrayList object
+	   if (size > 0) 
+	      recLessThan(header, e, result);   // passing only reference to result
+	   return result; 
+	}
+
+
+	@SuppressWarnings("unchecked")
+	private void recLessThan(Node<T> header, T e, ArrayList<T> result) { 
+	   if (header != null) { 
+	      if (((Comparable<T>) header.getElement()).compareTo(e) < 0)
+	         result.add(header.getElement()); 
+	      recLessThan(header.getNext(), e, result);  // passing reference to result
+	   }
+	}
+	
+	public ArrayList<Pair<T>> consecutiveIncreasingPairs() { 
+		   ArrayList<Pair<T>> result = new ArrayList<>();     // and empty ArrayList object
+		   if (size > 0) 
+		      recCIP(header, result); 
+		   return result; 
+		}
+
+	private void recCIP(Node<T> header, ArrayList<Pair<T>> result) {
+		if(header!=null && header.getNext()!=null) {
+			if (((Comparable<T>) header.getElement()).compareTo(header.getNext().getElement()) < 0) {
+				result.add(new Pair<T>(header.getElement(), header.getNext().getElement()));
+			}
+			recCIP(header.getNext(),result);
+		}
+		
+	}
+
+
+
 	
 
 

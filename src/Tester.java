@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Tester {
 
@@ -5,21 +6,24 @@ public class Tester {
 	 * @param args
 	 */
 	public static <T> void main(String[] args) {	
-		listTester("Testing the singly linked list (SLList): ",
-				new SLLSimpleList<Integer>());	
-		long start1 = System.nanoTime();
-		System.out.println(Examples.fibI(30));
-		long end1 = System.nanoTime();
-		long duration1=end1-start1;
-		System.out.println("The iterative Fibonacci sequence took: "+(duration1/1000000000)+" seconds. ");
-		long start2 = System.nanoTime();
-		Pair<Integer> pair = Examples.fibR(30);
-		long end2 = System.nanoTime();
-		System.out.println("("+pair.first()+","+pair.second()+")");
-		long duration2=end2-start2;
-		System.out.println("The iterative Fibonacci sequence took: "+(duration2/1000000000)+" seconds. ");
+//		listTester("Testing the singly linked list (SLList): ",
+//				new SLLSimpleList<Integer>());	
+		listTester2(new SLLSimpleList<Integer>());
+//		long start1 = System.nanoTime();
+//		System.out.println(Examples.fibI(30));
+//		long end1 = System.nanoTime();
+//		long duration1=end1-start1;
+//		System.out.println("The iterative Fibonacci sequence took: "+(duration1/1000000000)+" seconds. ");
+//		long start2 = System.nanoTime();
+//		Pair<Integer> pair = Examples.fibR(30);
+//		long end2 = System.nanoTime();
+//		System.out.println("("+pair.first()+","+pair.second()+")");
+//		long duration2=end2-start2;
+//		System.out.println("The iterative Fibonacci sequence took: "+(duration2/1000000000)+" seconds. ");
 	}
-		
+	
+
+	
 	private static <T> void listTester(String msg, SLLSimpleList<Integer>  list) { 
 		System.out.println(msg);
 
@@ -41,9 +45,26 @@ public class Tester {
 		showList(list); 
 		list.reverse();
 		showList(list);
-
 		
-
+		System.out.println(list.lessThan(500));
+	}
+	
+	private static <T> void listTester2(SLLSimpleList<Integer> list) {
+		for (int i=0; i< 5; i++) { 
+			list.addFirst(i); 
+		}
+		showList(list);
+		System.out.println(list.lessThan(2));
+		System.out.println(list.consecutiveIncreasingPairs());
+		
+		for (int i=5; i> 0; i--) { 
+			list.addFirst(i); 
+		}
+		showList(list);
+		ArrayList<Pair<Integer>> arr =list.consecutiveIncreasingPairs();
+		for(int i =0;i<arr.size();i++) {
+			System.out.println("("+arr.get(i).first()+","+arr.get(i).second()+")");
+		}
 	}
 		
 	private static void showElement(SLLSimpleList<Integer> list, int position) { 
